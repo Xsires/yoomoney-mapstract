@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.5.5'
+}
+apply plugin: 'io.spring.dependency-management'
+
+bootJar {
+    mainClass = "ru.xsires.ms.Main"
+}
+
+group 'ru.xsures'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor project(":processor")
+
+    implementation "org.mapstruct:mapstruct:1.4.2.Final"
+    implementation('org.springframework.boot:spring-boot-starter-web:2.5.5')
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs = [
+            '-Amapstruct.suppressGeneratorTimestamp=true',
+            '-Amapstruct.suppressGeneratorVersionInfoComment=true',
+            '-Amapstruct.verbose=true' ,
+            '-Amapstruct.unmappedTargetPolicy=ERROR' ,
+            '-Amapstruct.defaultComponentModel=spring',
+            '-Amapstruct.defaultInjectionStrategy=constructor'
+    ]
+}
+
+test {
+    useJUnitPlatform()
+}

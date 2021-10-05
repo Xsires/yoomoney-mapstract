@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+}
+
+group 'ru.xsures'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.mapstruct:mapstruct-processor:1.4.2.Final"
+}
+
+test {
+    useJUnitPlatform()
+}
